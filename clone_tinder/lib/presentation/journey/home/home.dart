@@ -48,10 +48,18 @@ class _HomeState extends State<Home> {
                         itemCount: state.userData.results.length,
                         itemBuilder: (context, index) {
                           return ListTile(
-                              title: Text(
-                            state.userData.results[index].name.first,
-                            textAlign: TextAlign.center,
-                          ));
+                            leading: CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                state.userData.results[index].picture.medium,
+                              ),
+                              radius: 40,
+                            ),
+                            title: Text(
+                              state.userData.results[index].name.first,
+                              textAlign: TextAlign.left,
+                            ),
+                            contentPadding: EdgeInsets.all(16),
+                          );
                         },
                       );
                     } else {
