@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clone_tinder/presentation/journey/bloc/home_state.dart';
 import 'package:clone_tinder/presentation/journey/bloc/home_bloc.dart';
+//import 'package:clone_tinder/presentation/entities/card.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -44,23 +45,9 @@ class _HomeState extends State<Home> {
                         child: CircularProgressIndicator(),
                       );
                     } else if (state is LoadedState) {
-                      return ListView.builder(
-                        itemCount: state.userData.results.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            leading: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                state.userData.results[index].picture.medium,
-                              ),
-                              radius: 40,
-                            ),
-                            title: Text(
-                              state.userData.results[index].name.first,
-                              textAlign: TextAlign.left,
-                            ),
-                            contentPadding: EdgeInsets.all(16),
-                          );
-                        },
+                      return Container(
+                        alignment: Alignment.center,
+                        child: _card(state),
                       );
                     } else {
                       return Text(
@@ -85,6 +72,41 @@ class _HomeState extends State<Home> {
               .textTheme
               .bodyText2
               .copyWith(fontWeight: FontWeight.w600),
+        ),
+      );
+
+  Card _card(state) => Card(
+        elevation: 50,
+        shadowColor: Colors.black,
+        color: Colors.white,
+        child: SizedBox(
+          width: 400,
+          height: 400,
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                SizedBox(
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        state.userData.results.first.picture.large),
+                    radius: 100,
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  state.userData.results.first.name.first,
+                  style: TextStyle(
+                    fontSize: 40,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       );
 }
