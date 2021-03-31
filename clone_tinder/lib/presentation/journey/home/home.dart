@@ -1,10 +1,13 @@
-import 'package:clone_tinder/presentation/journey/bloc/home_event.dart';
+import 'package:clone_tinder/presentation/app/route_constant.dart';
+import 'package:clone_tinder/presentation/journey/home/bloc/home_bloc.dart';
+import 'package:clone_tinder/presentation/widgets/appbar_widget.dart';
+import 'package:clone_tinder/presentation/widgets/tindercard_widget.dart';
+import 'package:clone_tinder/presentation/widgets/tinderstack_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:clone_tinder/presentation/journey/bloc/home_state.dart';
-import 'package:clone_tinder/presentation/journey/bloc/home_bloc.dart';
-//import 'package:clone_tinder/presentation/entities/card.dart';
+import 'package:clone_tinder/presentation/journey/home/bloc/home_event.dart';
+import 'package:clone_tinder/presentation/journey/home/bloc/home_state.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -20,93 +23,78 @@ class _HomeState extends State<Home> {
     homeBloc = HomeBloc()..add(LoadUserDataEvent());
   }
 
+  @override
   void dispose() {
     homeBloc.close();
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
+  SafeArea build(BuildContext context) => SafeArea(
         bottom: false,
         child: Scaffold(
-          appBar: _appBar(),
+          appBar: AppBarWidget.normal(context, title: "Home"),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
-                child: BlocBuilder(
+                child: BlocConsumer<HomeBloc, HomeState>(
                   cubit: homeBloc,
+                  listener: onStateChange,
                   builder: (context, state) {
                     if (state is LoadingState) {
-                      return Container(
-                        alignment: Alignment.center,
-                        child: CircularProgressIndicator(),
-                      );
-                    } else if (state is LoadedState) {
-                      return Container(
-                        alignment: Alignment.center,
-                        child: _card(state),
-                      );
-                    } else {
-                      return Text(
-                        "Home Page",
-                        textAlign: TextAlign.center,
-                      );
+                      return _getLoader();
                     }
+                    return _getTinderStack(state);
                   },
                 ),
               ),
+              _getFavouriteButton(),
             ],
           ),
-        ));
-  }
-
-  AppBar _appBar() => AppBar(
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        title: Text(
-          "Home",
-          style: Theme.of(context)
-              .textTheme
-              .bodyText2
-              .copyWith(fontWeight: FontWeight.w600),
         ),
       );
 
-  Card _card(state) => Card(
-        elevation: 50,
-        shadowColor: Colors.black,
-        color: Colors.white,
-        child: SizedBox(
-          width: 400,
-          height: 400,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                SizedBox(
-                  child: CircleAvatar(
-                    backgroundImage: NetworkImage(
-                        state.userData.results.first.picture.large),
-                    radius: 100,
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  state.userData.results.first.name.first,
-                  style: TextStyle(
-                    fontSize: 40,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ],
-            ),
+  Container _getLoader() => Container(
+        alignment: Alignment.center,
+        child: CircularProgressIndicator(),
+      );
+
+  Container _getFavouriteButton() => Container(
+        padding: EdgeInsets.symmetric(horizontal: 108),
+        child: TextButton.icon(
+          onPressed: () =>
+              Navigator.pushNamed(context, RouteConstant.favourite),
+          icon: Icon(Icons.favorite_rounded, color: Colors.red),
+          label: Text(
+            "Favourites",
+            style: Theme.of(context)
+                .textTheme
+                .bodyText2
+                .copyWith(fontWeight: FontWeight.normal, color: Colors.black),
           ),
         ),
       );
+
+  TinderStack _getTinderStack(HomeState state) => TinderStack(
+        getCardList(state),
+        onSwipeLeft: onSwipeLeft,
+        onSwipeRight: onSwipeRight,
+      );
+
+  List<Widget> getCardList(HomeState state) =>
+      (state.userData?.results ?? []).map((user) => TinderCard(user)).toList();
+
+  void onStateChange(BuildContext context, HomeState state) {
+    if (state is ItemRemovedState || state is UserSavedState) {
+      if (state.userData.results.isEmpty) {
+        homeBloc.add(LoadUserDataEvent());
+      }
+    }
+  }
+
+  void onSwipeRight(int index) => homeBloc.add(UserSaveEvent(index: index));
+
+  void onSwipeLeft(int index) => homeBloc.add(ItemRemoveEvent(index: index));
 }

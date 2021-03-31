@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 
-final String apiUrl = 'https://randomuser.me/api/?results=20';
+final String apiUrl = 'https://randomuser.me/api/?results=5';
 
 class RemoteDataSource {
   Future<UserData> getUser() async {

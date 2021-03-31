@@ -1,4 +1,5 @@
-import 'package:clone_tinder/presentation/journey/home/home.dart';
+import 'package:clone_tinder/presentation/app/route_constant.dart';
+import 'package:clone_tinder/presentation/app/routes.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -10,7 +11,8 @@ class App extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Home(),
+      routes: Routes.getAll(),
+      initialRoute: RouteConstant.home,
     );
   }
 }

@@ -123,3 +123,5 @@ abc_app/ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
 abc_app/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
 abc_app/lib/main.dart
 abc_app/test/widget_test.dart
+abc_app/
+apps/bloc_1
