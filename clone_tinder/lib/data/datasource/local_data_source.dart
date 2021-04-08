@@ -17,9 +17,9 @@ class LocalDataSource {
         await database.query(DataTable.tableName, limit: limit);
 
     List<Results> result = {mapValues ?? []}.isNotEmpty
-        ? mapValues.map((v) {
-            DataTable.resultsFromMapValues(v)..isFavourite = true;
-          }).toList()
+        ? mapValues
+            .map((v) => DataTable.resultsFromMapValues(v)..isFavourite = true)
+            .toList()
         : [];
     return UserData(results: result);
   }
