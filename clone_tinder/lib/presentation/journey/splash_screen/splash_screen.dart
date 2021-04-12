@@ -13,8 +13,6 @@ class Splash extends StatelessWidget {
         "Tinder \nClone",
         textScaleFactor: 6,
       ),
-      loaderColor: Colors.blue,
-      loadingText: Text("Loading..."),
     );
   }
 }

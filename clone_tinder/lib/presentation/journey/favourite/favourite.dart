@@ -1,3 +1,5 @@
+//import 'package:clone_tinder/presentation/app/route_constant.dart';
+import 'package:clone_tinder/presentation/journey/detail_screen/detail_screen.dart';
 import 'package:clone_tinder/presentation/journey/favourite/bloc/favourite_bloc.dart';
 import 'package:clone_tinder/presentation/journey/favourite/bloc/favourite_event.dart';
 import 'package:clone_tinder/presentation/journey/favourite/bloc/favourite_state.dart';
@@ -96,7 +98,12 @@ class _FavouriteState extends State<Favourite> {
               ),
             ),
             child: ListTile(
-              onTap: null,
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Details(
+                            user: state.userData.results[index],
+                          ))),
               leading: CircleAvatar(
                 backgroundImage: NetworkImage(
                     state?.userData?.results[index]?.picture?.medium),
