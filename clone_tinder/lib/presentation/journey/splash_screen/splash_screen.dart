@@ -5,12 +5,13 @@ import 'package:splashscreen/splashscreen.dart';
 class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SplashScreen.timer(
+    return SplashScreen(
+      navigateAfterFuture: null,
       seconds: 3,
       navigateAfterSeconds: Home(),
       title: Text(
-        "Tinder Clone",
-        textScaleFactor: 4,
+        "Tinder \nClone",
+        textScaleFactor: 6,
       ),
       loaderColor: Colors.blue,
       loadingText: Text("Loading..."),

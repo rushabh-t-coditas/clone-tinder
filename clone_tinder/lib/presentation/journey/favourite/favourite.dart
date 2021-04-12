@@ -96,6 +96,7 @@ class _FavouriteState extends State<Favourite> {
               ),
             ),
             child: ListTile(
+              onTap: null,
               leading: CircleAvatar(
                 backgroundImage: NetworkImage(
                     state?.userData?.results[index]?.picture?.medium),
