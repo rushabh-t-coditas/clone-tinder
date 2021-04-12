@@ -62,17 +62,17 @@ class _HomeState extends State<Home> {
       );
 
   Container _getFavouriteButton() => Container(
-        padding: EdgeInsets.symmetric(horizontal: 108),
+        padding: EdgeInsets.symmetric(horizontal: 108, vertical: 108),
         child: TextButton.icon(
           onPressed: () =>
               Navigator.pushNamed(context, RouteConstant.favourite),
-          icon: Icon(Icons.favorite_rounded, color: Colors.red),
+          icon: Icon(Icons.favorite_rounded, color: Colors.red, size: 35),
           label: Text(
             "Favourites",
-            style: Theme.of(context)
-                .textTheme
-                .bodyText2
-                .copyWith(fontWeight: FontWeight.normal, color: Colors.black),
+            style: Theme.of(context).textTheme.bodyText2.copyWith(
+                fontWeight: FontWeight.normal,
+                fontSize: 30,
+                color: Colors.black),
           ),
         ),
       );

@@ -12,7 +12,7 @@ class App extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       routes: Routes.getAll(),
-      initialRoute: RouteConstant.home,
+      initialRoute: RouteConstant.splash,
     );
   }
 }

@@ -109,7 +109,7 @@ class _FavouriteState extends State<Favourite> {
               ),
               contentPadding: EdgeInsets.all(16.0),
             ),
-            key: null,
+            key: ValueKey<int>(index),
             direction: DismissDirection.endToStart,
           );
         },
