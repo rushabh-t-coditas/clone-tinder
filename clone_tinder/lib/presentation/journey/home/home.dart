@@ -66,12 +66,12 @@ class _HomeState extends State<Home> {
         child: TextButton.icon(
           onPressed: () =>
               Navigator.pushNamed(context, RouteConstant.favourite),
-          icon: Icon(Icons.favorite_rounded, color: Colors.red, size: 35),
+          icon: Icon(Icons.favorite_rounded, color: Colors.red, size: 25),
           label: Text(
             "Favourites",
             style: Theme.of(context).textTheme.bodyText2.copyWith(
                 fontWeight: FontWeight.normal,
-                fontSize: 30,
+                fontSize: 20,
                 color: Colors.black),
           ),
         ),

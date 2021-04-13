@@ -12,39 +12,35 @@ class Details extends StatelessWidget {
         bottom: false,
         child: Scaffold(
           appBar: AppBarWidget.normal(context, title: user.name.first),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                width: MediaQuery.of(context).size.width * 0.8,
-                height: MediaQuery.of(context).size.width * 1.2,
-                child: Card(
-                  elevation: 2.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 10,
-                            ),
-                            getProfileImage(),
-                            getDetail(),
-                          ],
-                        ),
+          body: Center(
+            child: Container(
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: MediaQuery.of(context).size.width * 1.4,
+              child: Card(
+                elevation: 2.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 10,
+                          ),
+                          getProfileImage(),
+                          getDetail(),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
         ),
       );
@@ -67,36 +63,63 @@ class Details extends StatelessWidget {
       );
 
   Container getDetail() => Container(
-        height: 240,
+        height: 300,
         width: 300,
         alignment: Alignment.center,
         padding: EdgeInsets.all(10),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(user.name.title +
-                ' ' +
-                user.name.first +
-                ' ' +
-                user.name.last +
-                '\n ' +
-                user.gender +
-                '\t' +
-                user.dob.age.toString()),
-            Text('Phone: ' +
-                user.phone +
-                '\nMobile: ' +
-                user.cell +
-                '\nEmail: ' +
-                user.email),
-            Text(user.location.street.number.toString() +
-                ', ' +
-                user.location.street.name +
-                '\n' +
-                user.location.city +
-                ', ' +
-                user.location.state +
-                '\n' +
-                user.location.country),
+            Text(
+              "Name:",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+            Text(
+              user.name.title + ' ' + user.name.first + ' ' + user.name.last,
+              style: TextStyle(fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              "Contact:",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+            Text(
+              'Phone: ' +
+                  user.phone +
+                  '\nMobile: ' +
+                  user.cell +
+                  '\nEmail: ' +
+                  user.email,
+              style: TextStyle(fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              "Location:",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+            Text(
+              user.location.street.number.toString() +
+                  ', ' +
+                  user.location.street.name +
+                  '\n' +
+                  user.location.city +
+                  ', ' +
+                  user.location.state +
+                  '\n' +
+                  user.location.country,
+              style: TextStyle(fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              "Info:",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+            Text(
+              user.gender + '\t\t' + user.dob.age.toString() + ' years old',
+              style: TextStyle(fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
           ],
         ),
       );

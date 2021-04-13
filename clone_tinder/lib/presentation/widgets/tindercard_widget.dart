@@ -33,12 +33,12 @@ class _TinderCardState extends State<TinderCard> {
   @override
   Widget build(BuildContext context) => Container(
         width: MediaQuery.of(context).size.width * 1,
-        height: MediaQuery.of(context).size.width * 1.2,
+        height: MediaQuery.of(context).size.width * 1,
         child: Container(
           width: MediaQuery.of(context).size.width * 1.0,
-          height: MediaQuery.of(context).size.width * 1.2,
+          height: MediaQuery.of(context).size.width * 1,
           child: Card(
-            elevation: 2.0,
+            elevation: 8,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
             ),
@@ -70,54 +70,105 @@ class _TinderCardState extends State<TinderCard> {
       );
 
   Container getDetails(CardState state) => Container(
-      height: 150,
-      width: 150,
+      height: 160,
+      width: 250,
       alignment: Alignment.center,
       padding: EdgeInsets.all(10),
       child: getText(state));
 
-  Text getText(CardState state) {
-    if (state is InfoState) {
-      return Text(widget.user.name.title +
-          ' ' +
-          widget.user.name.first +
-          ' ' +
-          widget.user.name.last +
-          '\n ' +
+  Column getText(CardState state) {
+    Text title;
+    Text detail;
+
+    switch (state.index) {
+      case 0:
+        title = Text(
+          "Name:",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        );
+        detail = Text(
+          widget.user.name.title +
+              ' ' +
+              widget.user.name.first +
+              ' ' +
+              widget.user.name.last,
+          style: TextStyle(fontSize: 16),
+          textAlign: TextAlign.center,
+        );
+        break;
+
+      case 1:
+        title = Text(
+          "Contact:",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        );
+        detail = Text(
+          'Phone: ' +
+              widget.user.phone +
+              '\nMobile: ' +
+              widget.user.cell +
+              '\nEmail: ' +
+              widget.user.email,
+          style: TextStyle(fontSize: 16),
+          textAlign: TextAlign.center,
+        );
+        break;
+
+      case 2:
+        title = Text(
+          "Location:",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        );
+        detail = Text(
+          widget.user.location.street.number.toString() +
+              ', ' +
+              widget.user.location.street.name +
+              '\n' +
+              widget.user.location.city +
+              ', ' +
+              widget.user.location.state +
+              '\n' +
+              widget.user.location.country,
+          style: TextStyle(fontSize: 16),
+          textAlign: TextAlign.center,
+        );
+        break;
+
+      case 3:
+        title = Text(
+          "Info:",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        );
+        detail = Text(
           widget.user.gender +
-          '\t' +
-          widget.user.dob.age.toString());
-    } else if (state is ContactState) {
-      return Text('Phone: ' +
-          widget.user.phone +
-          '\nMobile: ' +
-          widget.user.cell +
-          '\nEmail: ' +
-          widget.user.email);
-    } else if (state is LocationState) {
-      return Text(widget.user.location.street.number.toString() +
-          ', ' +
-          widget.user.location.street.name +
-          '\n' +
-          widget.user.location.city +
-          ', ' +
-          widget.user.location.state +
-          '\n' +
-          widget.user.location.country);
-    } else
-      return Text('Birthday: ' + widget.user.dob.date);
+              '\t\t' +
+              widget.user.dob.age.toString() +
+              ' years old',
+          style: TextStyle(fontSize: 16),
+          textAlign: TextAlign.center,
+        );
+    }
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        title,
+        detail,
+      ],
+    );
   }
 
   Container getProfileImage() => Container(
-        width: 200.0,
-        height: 200.0,
+        width: 160.0,
+        height: 160.0,
         decoration: BoxDecoration(
           color: Colors.blueGrey,
           image: DecorationImage(
             image: NetworkImage(widget?.user?.picture?.large),
             fit: BoxFit.cover,
           ),
-          borderRadius: BorderRadius.all(Radius.circular(100.0)),
+          borderRadius: BorderRadius.all(Radius.circular(80.0)),
           border: new Border.all(
             color: Colors.black,
             width: 1.5,
@@ -146,7 +197,7 @@ class _TinderCardState extends State<TinderCard> {
         onTap: onTap,
         items: [
           BottomNavigationBarItem(
-            label: "Info",
+            label: "Name",
             icon: Icon(Icons.person_outline_outlined),
           ),
           BottomNavigationBarItem(
@@ -158,8 +209,8 @@ class _TinderCardState extends State<TinderCard> {
             icon: Icon(FontAwesome5.map_marked_alt),
           ),
           BottomNavigationBarItem(
-            label: "DOB",
-            icon: Icon(FontAwesome5.calendar_alt),
+            label: "Info",
+            icon: Icon(FontAwesome5.info_circle),
           ),
         ],
       );

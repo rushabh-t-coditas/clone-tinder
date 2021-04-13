@@ -10,7 +10,7 @@ abstract class CommonRoutes {
   static Map<String, WidgetBuilder> all() => {
         RouteConstant.home: (context) => Home(),
         RouteConstant.favourite: (context) => Favourite(),
-        RouteConstant.splash: (context) => Splash(),
+        RouteConstant.splash: (context) => SplashScreen(),
         RouteConstant.detail: (context) => Details(
               user: Results(),
             ),
