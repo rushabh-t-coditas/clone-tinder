@@ -21,7 +21,7 @@ class TinderStack extends StatelessWidget {
       );
 
   List<Positioned> _getPositions(BuildContext context, List<Widget> widgets) {
-    double position = 30.0;
+    double position = 15.0;
     return (widgets ?? [])
         .asMap()
         .map((index, widget) {
@@ -29,7 +29,7 @@ class TinderStack extends StatelessWidget {
             top: position,
             child: _attachDragBehaviour(context, index, widget),
           );
-          position = position + 20;
+          position = position + 15;
           return MapEntry(index, item);
         })
         .values

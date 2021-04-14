@@ -62,7 +62,7 @@ class _HomeState extends State<Home> {
       );
 
   Container _getFavouriteButton() => Container(
-        padding: EdgeInsets.symmetric(horizontal: 108, vertical: 108),
+        padding: EdgeInsets.symmetric(horizontal: 108, vertical: 30),
         child: TextButton.icon(
           onPressed: () =>
               Navigator.pushNamed(context, RouteConstant.favourite),

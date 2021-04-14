@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class FavouriteBloc extends Bloc<FavouriteEvent, FavouriteState> {
   UserUsecase useCase;
 
-  FavouriteBloc() : super(InitialFavouriteState()) {
+  FavouriteBloc() : super(InitialFavouriteState(0)) {
     this.useCase = UserUsecase();
   }
 
@@ -24,9 +24,10 @@ class FavouriteBloc extends Bloc<FavouriteEvent, FavouriteState> {
   }
 
   Stream<FavouriteState> _mapLoadUserEventToState(LoadUserEvent event) async* {
-    yield LoadingFavouriteState(state.userData);
+    yield LoadingFavouriteState(state.userData, state.count);
     final UserData userData = await useCase.getUser(fromLocal: true);
-    yield LoadedFavouriteState(userData);
+    final int count = await useCase.getCount();
+    yield LoadedFavouriteState(userData, count);
   }
 
   Stream<FavouriteState> _mapRemoveUserEventToState(
@@ -38,12 +39,12 @@ class FavouriteBloc extends Bloc<FavouriteEvent, FavouriteState> {
 
     if (results.isNotEmpty) {
       if (fromLocal) {
-        yield LoadingFavouriteState(state.userData);
+        yield LoadingFavouriteState(state.userData, state.count);
         Results result = results[index];
         await useCase.removeUser(result.id);
       }
       results.removeAt(index);
     }
-    yield FavouriteItemRemovedState(UserData(results: results));
+    yield FavouriteItemRemovedState(UserData(results: results), state.count);
   }
 }

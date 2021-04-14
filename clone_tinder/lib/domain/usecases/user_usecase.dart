@@ -19,4 +19,6 @@ class UserUsecase {
   Future<bool> saveUser(Results results) => _userRepository.saveUser(results);
 
   Future<bool> removeUser(String id) => _userRepository.removeUser(id);
+
+  Future<int> getCount() => _userRepository.getCount();
 }

@@ -32,45 +32,41 @@ class _TinderCardState extends State<TinderCard> {
 
   @override
   Widget build(BuildContext context) => Container(
-        width: MediaQuery.of(context).size.width * 1,
+        width: MediaQuery.of(context).size.width * 1.0,
         height: MediaQuery.of(context).size.width * 1,
-        child: Container(
-          width: MediaQuery.of(context).size.width * 1.0,
-          height: MediaQuery.of(context).size.width * 1,
-          child: Card(
-            elevation: 8,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 10,
-                      ),
-                      getProfileImage(),
-                      BlocBuilder<CardBloc, CardState>(
-                        cubit: _cardBloc,
-                        builder: (context, state) {
-                          return getDetails(state);
-                        },
-                      ),
-                    ],
-                  ),
+        child: Card(
+          elevation: 8,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    getProfileImage(),
+                    BlocBuilder<CardBloc, CardState>(
+                      cubit: _cardBloc,
+                      builder: (context, state) {
+                        return getDetails(state);
+                      },
+                    ),
+                  ],
                 ),
-                getNavigationBar(),
-              ],
-            ),
+              ),
+              getNavigationBar(),
+            ],
           ),
         ),
       );
 
   Container getDetails(CardState state) => Container(
-      height: 160,
+      height: 130,
       width: 250,
       alignment: Alignment.center,
       padding: EdgeInsets.all(10),
@@ -84,7 +80,7 @@ class _TinderCardState extends State<TinderCard> {
       case 0:
         title = Text(
           "Name:",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         );
         detail = Text(
           widget.user.name.title +
@@ -100,7 +96,7 @@ class _TinderCardState extends State<TinderCard> {
       case 1:
         title = Text(
           "Contact:",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         );
         detail = Text(
           'Phone: ' +
@@ -117,7 +113,7 @@ class _TinderCardState extends State<TinderCard> {
       case 2:
         title = Text(
           "Location:",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         );
         detail = Text(
           widget.user.location.street.number.toString() +
@@ -137,7 +133,7 @@ class _TinderCardState extends State<TinderCard> {
       case 3:
         title = Text(
           "Info:",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         );
         detail = Text(
           widget.user.gender +
@@ -160,15 +156,15 @@ class _TinderCardState extends State<TinderCard> {
   }
 
   Container getProfileImage() => Container(
-        width: 160.0,
-        height: 160.0,
+        width: 120.0,
+        height: 120.0,
         decoration: BoxDecoration(
           color: Colors.blueGrey,
           image: DecorationImage(
             image: NetworkImage(widget?.user?.picture?.large),
             fit: BoxFit.cover,
           ),
-          borderRadius: BorderRadius.all(Radius.circular(80.0)),
+          borderRadius: BorderRadius.all(Radius.circular(60.0)),
           border: new Border.all(
             color: Colors.black,
             width: 1.5,

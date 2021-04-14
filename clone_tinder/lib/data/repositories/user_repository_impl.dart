@@ -36,4 +36,7 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<bool> removeUser(String id) =>
       this.userLocalDataSource.removeUserById(id);
+
+  @override
+  Future<int> getCount() => this.userLocalDataSource.getCount();
 }

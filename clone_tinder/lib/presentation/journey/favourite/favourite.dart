@@ -1,4 +1,5 @@
 //import 'package:clone_tinder/presentation/app/route_constant.dart';
+import 'package:clone_tinder/domain/usecases/user_usecase.dart';
 import 'package:clone_tinder/presentation/journey/detail_screen/detail_screen.dart';
 import 'package:clone_tinder/presentation/journey/favourite/bloc/favourite_bloc.dart';
 import 'package:clone_tinder/presentation/journey/favourite/bloc/favourite_event.dart';
@@ -16,6 +17,7 @@ class Favourite extends StatefulWidget {
 
 class _FavouriteState extends State<Favourite> {
   FavouriteBloc _favouriteBloc;
+  UserUsecase usecase;
 
   @override
   void initState() {
@@ -59,9 +61,7 @@ class _FavouriteState extends State<Favourite> {
 
   void onStateChange(BuildContext context, FavouriteState state) {
     if (state is FavouriteItemRemovedState) {
-      if (state.userData.results.isEmpty) {
-        _favouriteBloc..add(LoadUserEvent());
-      }
+      _favouriteBloc..add(LoadUserEvent());
     }
   }
 
@@ -82,7 +82,7 @@ class _FavouriteState extends State<Favourite> {
       );
 
   Widget _getList(FavouriteState state) => ListView.builder(
-        itemCount: state.userData.results.length,
+        itemCount: state.count,
         itemBuilder: (BuildContext context, int index) {
           return Dismissible(
             onDismissed: (DismissDirection direction) {

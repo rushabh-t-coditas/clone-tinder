@@ -9,4 +9,6 @@ abstract class UserRepository {
   Future<bool> removeUser(String id);
 
   Future<bool> saveUser(Results results);
+
+  Future<int> getCount();
 }

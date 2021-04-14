@@ -25,12 +25,12 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Center(
         child: Text(
           "Tinder \nClone",
-          textScaleFactor: 4,
+          textScaleFactor: 3.5,
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,
             fontStyle: FontStyle.italic,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w500,
             fontSize: 30,
             wordSpacing: 2,
           ),

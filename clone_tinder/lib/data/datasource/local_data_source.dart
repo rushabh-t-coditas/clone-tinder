@@ -2,19 +2,28 @@ import 'package:clone_tinder/data/models/results.dart';
 import 'package:clone_tinder/data/models/user_data.dart';
 import 'package:clone_tinder/data/database/data_table.dart';
 import 'package:clone_tinder/data/database/db_client.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sql.dart';
 
 class LocalDataSource {
   DBClient _dbClient;
+  int count;
 
   LocalDataSource() {
     _dbClient = DBClient();
   }
 
-  Future<UserData> getUser({int limit = 5}) async {
+  Future<int> getCount() async {
+    var database = await _dbClient.database;
+    count = Sqflite.firstIntValue(await database
+        .rawQuery('SELECT COUNT (*) from ${DataTable.tableName}'));
+    return count;
+  }
+
+  Future<UserData> getUser() async {
     var database = await _dbClient.database;
     List<Map<String, dynamic>> mapValues =
-        await database.query(DataTable.tableName, limit: limit);
+        await database.query(DataTable.tableName, limit: count);
 
     List<Results> result = {mapValues ?? []}.isNotEmpty
         ? mapValues
